@@ -1,22 +1,23 @@
 {
   "name": "linter-flow",
-  "version": "5.1.0",
+  "version": "5.4.0",
   "description": "Lint JavaScript on the fly, using Flow",
   "repository": "https://github.com/AtomLinter/linter-flow.git",
   "homepage": "https://github.com/AtomLinter/linter-flow",
   "author": "Naman Goel",
   "license": "MIT",
   "engines": {
-    "atom": ">=1.0.0"
+    "atom": ">=1.0.0 <2.0.0"
   },
   "main": "./lib/index.js",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint . && flow check",
     "test": "apm test"
   },
   "dependencies": {
     "atom-linter": "^4.4.0",
-    "atom-package-deps": "^4.0.1"
+    "atom-package-deps": "^4.0.1",
+    "lodash.flatten": "^4.2.0"
   },
   "package-deps": [
     "linter"
@@ -36,9 +37,33 @@
     }
   },
   "devDependencies": {
-    "babel-eslint": "6.0.2",
-    "eslint": "^2.4.0",
-    "eslint-config-airbnb": "^6.1.0",
-    "eslint-plugin-react": "^4.2.3"
+    "babel-eslint": "^6.0.4",
+    "eslint": "^2.10.1",
+    "eslint-config-airbnb-base": "^3.0.1",
+    "eslint-plugin-import": "^1.8.0",
+    "flow-bin": "^0.28.0"
+  },
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "parser": "babel-eslint",
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "globals": {
+      "atom": true
+    },
+    "rules": {
+      "no-console": 0,
+      "global-require": 0,
+      "import/no-unresolved": [
+        2,
+        {
+          "ignore": [
+            "atom"
+          ]
+        }
+      ]
+    }
   }
 }
